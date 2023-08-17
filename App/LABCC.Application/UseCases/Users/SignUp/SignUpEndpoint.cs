@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace LABCC.Application.UseCases.Users.SignUp;
 
-[HttpPost("/api/user/signup")]
+[HttpPost("/users/signup")]
 [AllowAnonymous]
 public sealed class SignUpEndpoint : Endpoint<
     SignUpRequest, 
