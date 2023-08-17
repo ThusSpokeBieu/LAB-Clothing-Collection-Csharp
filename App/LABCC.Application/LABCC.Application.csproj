@@ -28,4 +28,9 @@
       <Folder Include="UseCases\Users\Login\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\LABCC.Domain\LABCC.Domain.csproj" />
+      <ProjectReference Include="..\LABCC.Infrastructure\LABCC.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
