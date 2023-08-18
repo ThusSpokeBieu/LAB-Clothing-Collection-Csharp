@@ -24,7 +24,7 @@ public sealed class SignUpMapper : Mapper<SignUpRequest,SignUpResponse, User>
         Phone = u.Phone.Value,
         DateOfBirth = u.DateOfBirth.Value,
         Gender = u.Gender.ToString(),
-        UserStatus = u.UserStatus.ToString(),
+        UserStatus = u.Status.ToString(),
         UserType = u.UserRole.ToString()
     };
 

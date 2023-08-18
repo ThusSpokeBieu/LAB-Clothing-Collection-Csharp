@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using LABCC.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace LABCC.Application.UseCases.Users.SignUp;
 
@@ -9,11 +11,26 @@ public sealed class SignUpEndpoint : Endpoint<
     SignUpResponse, 
     SignUpMapper>
 {
+    private readonly IUserService _userService;
+    
+    public SignUpEndpoint(IUserService userService)
+    {
+        _userService = userService;
+    }
+    
     public override async Task HandleAsync(SignUpRequest req, CancellationToken ct)
     {
         var user = Map.ToEntity(req);
+
+        var result = await _userService.CreateAsync(user);
+
+        if (!result) AddError(r => r.Document, "Something was wrong");
+
+        ThrowIfAnyErrors();
+        
         Response = Map.FromEntity(user);
-        await SendAsync(Response);
+
+        await SendAsync(Response, 201, ct);
     }
 
 }
