@@ -1,12 +1,12 @@
 ﻿namespace LABCC.Domain.Interfaces.Services;
 
-public interface IBaseService<TEntity>
+public interface IBaseService<TEntity, TDto, TParams>
 {
     Task<bool> CreateAsync(TEntity customer);
 
-    Task<TEntity?> GetAsync(Guid id);
+    Task<TDto?> GetAsync(Guid id);
 
-    Task<IEnumerable<TEntity>> GetAllAsync();
+    Task<IEnumerable<TDto>> GetAllAsync(int page, TParams @params);
 
     Task<bool> UpdateAsync(TEntity customer);
 

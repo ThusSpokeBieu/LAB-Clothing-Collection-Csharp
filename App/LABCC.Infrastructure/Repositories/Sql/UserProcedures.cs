@@ -1,6 +1,6 @@
 ﻿namespace LABCC.Infrastructure.Repositories.Sql;
 
-public record UserProcedures
+public sealed record UserProcedures
 {
     public const string Insert = "dbo.InsertUser";
     public const string GetUsersByPage = "dbo.GetUsersByPage";

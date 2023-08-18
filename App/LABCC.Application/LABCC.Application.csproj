@@ -25,6 +25,11 @@
 
     <ItemGroup>
       <Folder Include="Interfaces\" />
+      <Folder Include="UseCases\ClothingCollections\" />
+      <Folder Include="UseCases\ClothingModels\" />
+      <Folder Include="UseCases\Users\DeleteUser\" />
+      <Folder Include="UseCases\Users\GetSingleUser\" />
+      <Folder Include="UseCases\Users\UpdateUser\" />
     </ItemGroup>
 
     <ItemGroup>

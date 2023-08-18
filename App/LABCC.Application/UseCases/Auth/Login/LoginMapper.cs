@@ -4,7 +4,7 @@ using LABCC.Domain.Entities.Users;
 
 namespace LABCC.Application.UseCases.Auth.Login;
 
-public class LoginMapper : IMapper
+public sealed class LoginMapper : IMapper
 {
     public static LoginResponse FromEntity(UserDto data, string token) => new()
     {

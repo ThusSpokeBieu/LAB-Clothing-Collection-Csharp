@@ -1,4 +1,5 @@
-﻿using LABCC.Domain.Enums;
+﻿using System.Text.Json.Serialization;
+using LABCC.Domain.Enums;
 
 namespace LABCC.Domain.Entities.Users;
 
@@ -6,6 +7,8 @@ public sealed record UserDto
 {
     public Guid Id { get; init; } = default!;
     public string Email { get; init; } = default!;
+    
+    [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
     public string Password { get; init; } = default!;
     public string Name { get; init; } = default!;
     public string Document { get; init; } = default!; 

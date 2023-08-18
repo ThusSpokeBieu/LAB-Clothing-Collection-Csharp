@@ -4,7 +4,7 @@ using LABCC.Domain.Utils;
 
 namespace LABCC.Application.UseCases.Auth.SignUp;
 
-public class SignUpValidator : Validator<SignUpRequest>
+public sealed class SignUpValidator : Validator<SignUpRequest>
 {
     public SignUpValidator()
     {

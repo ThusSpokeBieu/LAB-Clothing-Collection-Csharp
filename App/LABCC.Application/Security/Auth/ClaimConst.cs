@@ -1,6 +1,6 @@
-﻿namespace LABCC.Application.Configs.Auth;
+﻿namespace LABCC.Application.Security.Auth;
 
-public record Claim
+public static class ClaimConst
 {
     public const string Id = "userID";
     public const string Document = "Document";

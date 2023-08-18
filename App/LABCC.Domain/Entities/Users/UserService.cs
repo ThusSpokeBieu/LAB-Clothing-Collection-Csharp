@@ -40,14 +40,14 @@ public class UserService : IUserService
         return isValid ? userDto : null;
     }
 
-    public Task<User?> GetAsync(Guid id)
+    public Task<UserDto?> GetAsync(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<User>> GetAllAsync()
+    public async Task<IEnumerable<UserDto>> GetAllAsync(int page, UserParams @params)
     {
-        throw new NotImplementedException();
+        return await _userRepo.GetAllAsync(page, @params);
     }
 
     public Task<bool> UpdateAsync(User customer)

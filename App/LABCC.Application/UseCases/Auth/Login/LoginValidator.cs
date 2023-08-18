@@ -1,10 +1,9 @@
 ﻿using FluentValidation;
 using LABCC.Domain.Utils;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace LABCC.Application.UseCases.Auth.Login;
 
-public class LoginValidator : Validator<LoginRequest>
+public sealed class LoginValidator : Validator<LoginRequest>
 {
     public LoginValidator()
     {

@@ -56,19 +56,20 @@ public sealed class User : BaseEntity
     {
         var id = Guid.NewGuid();
         var onlyNumbersDocument = RegexConst.NotNumericalDigit().Replace(document, "");
-        var role = UserRolesEnum.OTHER;
+        var onlyNumbersPhone = RegexConst.NotNumericalDigit().Replace(phone, "");
+        const UserRolesEnum role = UserRolesEnum.OTHER;
         var now = DateTimeOffset.Now;
-        var status = StatusEnum.ACTIVE;
+        const StatusEnum status = StatusEnum.ACTIVE;
 
         return new User(
             id,
             email, 
             password, 
             name, 
-            document, 
+            onlyNumbersDocument, 
             dateOfBirth, 
             gender, 
-            phone,
+            onlyNumbersPhone,
             role,
             now,
             now,

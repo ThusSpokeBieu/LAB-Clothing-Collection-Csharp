@@ -9,18 +9,17 @@ using LABCC.Domain.Interfaces.Services;
 using LABCC.Infrastructure.Configs;
 using LABCC.Infrastructure.Database;
 using LABCC.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var customConfig = CustomConfig.FromEnv();
 
 var builder = WebApplication.CreateBuilder(args);
-var config = builder.Configuration;
 
 builder.Services.AddFastEndpoints(options =>
     options
         .SourceGeneratorDiscoveredTypes = DiscoveredTypes.All);
 
 builder.Services.AddJWTBearerAuth(customConfig["Jwt-Secret"]);
+
 builder.Services.SwaggerDocument();
 
 builder.Services.AddSingleton<IDbConnectionFactory>(_ =>

@@ -1,6 +1,6 @@
 ﻿namespace LABCC.Application.UseCases.Auth.SignUp;
 
-public record SignUpResponse
+public sealed record SignUpResponse
 {
     public Guid Id { get; init; } = default!;
     public string Email { get; init; } = default!;

@@ -4,7 +4,7 @@ using LABCC.Domain.Interfaces.Database;
 
 namespace LABCC.Infrastructure.Database;
 
-public class MsSqlConnectionFactory : IDbConnectionFactory
+public sealed class MsSqlConnectionFactory : IDbConnectionFactory
 {
     private readonly string _connectionString;
     

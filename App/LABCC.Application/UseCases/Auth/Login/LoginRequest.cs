@@ -2,7 +2,7 @@
 
 namespace LABCC.Application.UseCases.Auth.Login;
 
-public record LoginRequest
+public sealed record LoginRequest
 {
     [DefaultValue("example@email.com")]
     public string Credential { get; init; } = default!;

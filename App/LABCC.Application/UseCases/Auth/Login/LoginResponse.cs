@@ -1,6 +1,6 @@
 ﻿namespace LABCC.Application.UseCases.Auth.Login;
 
-public record LoginResponse
+public sealed record LoginResponse
 {
     public string Id { get; init; } = default!;
     public string Document { get; init; } = default!;

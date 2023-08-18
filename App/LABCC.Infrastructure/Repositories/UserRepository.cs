@@ -7,7 +7,7 @@ using LABCC.Infrastructure.Repositories.Sql;
 
 namespace LABCC.Infrastructure.Repositories;
 
-public class UserRepository : IUserRepository
+public sealed class UserRepository : IUserRepository
 {
     private readonly IDbConnectionFactory _connectionFactory;
 
@@ -49,14 +49,25 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<UserDto>> GetAllAsync()
+    public async Task<IEnumerable<UserDto>> GetAllAsync(int page, UserParams? @params)
     {
-        throw new NotImplementedException();
-    }
+        using var connection = await _connectionFactory.CreateConnectionAsync();
 
-    public Task<IEnumerable<UserDto>> GetAllAsync(int page)
-    {
-        throw new NotImplementedException();
+        var parameters = new
+        {
+            PageNumber = page,
+            PageSize = 4,
+            FilterName = @params?.Name ?? null,
+            FilterGender = @params?.Gender ?? null,
+            FilterStatus = @params?.Status ?? null,
+            FilterUserRole = @params?.UserRole ?? null,
+            FilterDateOfBirth = @params?.DateOfBirth ?? null,
+        };
+
+        return await connection.QueryAsync<UserDto>(
+            UserProcedures.GetUsersByPage, 
+            parameters,
+            commandType: CommandType.StoredProcedure);
     }
 
     public Task<bool> UpdateAsync(UserDto customer)

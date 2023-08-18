@@ -2,7 +2,7 @@
 
 namespace LABCC.Application.UseCases.Auth.SignUp;
 
-public record SignUpRequest
+public sealed record SignUpRequest
 {
     [DefaultValue("example@email.com")]
     public string Email { get; init; } = default!;
