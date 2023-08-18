@@ -6,7 +6,7 @@ public static class UserMapper
     {
         return new UserDto
         {
-            Id = user.Id.Value.ToString(),
+            Id = user.Id.Value,
             Email = user.Email.Value,
             Password = user.Password.Value,
             Document = user.Document.Value,

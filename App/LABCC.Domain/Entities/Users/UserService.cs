@@ -1,4 +1,5 @@
-﻿using LABCC.Domain.Interfaces.Repositories;
+﻿using LABCC.Domain.Entities.Users.VO;
+using LABCC.Domain.Interfaces.Repositories;
 using LABCC.Domain.Interfaces.Services;
 
 namespace LABCC.Domain.Entities.Users;
@@ -26,6 +27,17 @@ public class UserService : IUserService
 
         var userDto = user.ToUserDto();
         return await _userRepo.CreateAsync(userDto);
+    }
+
+    public async Task<UserDto?> UserLogin(string credential, string password)
+    {
+        var userDto = await _userRepo.UserLogin(credential);
+
+        if (userDto is null) return userDto;
+
+        var isValid = Password.Verify(userDto.Password, password);
+
+        return isValid ? userDto : null;
     }
 
     public Task<User?> GetAsync(Guid id)

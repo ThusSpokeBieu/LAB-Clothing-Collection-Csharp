@@ -27,6 +27,23 @@ public class UserRepository : IUserRepository
         return result > 0;
     }
 
+    public async Task<UserDto?> UserLogin(string credential)
+    {
+        using var connection = await _connectionFactory.CreateConnectionAsync();
+        
+        var parameters = new
+        {
+            LoginValue = credential
+        };
+        
+        var result = await connection.QueryFirstOrDefaultAsync<UserDto>(
+            UserProcedures.UserLogin,
+            parameters,
+            commandType: CommandType.StoredProcedure);
+
+        return result;
+    }
+
     public Task<UserDto?> GetAsync(Guid id)
     {
         throw new NotImplementedException();

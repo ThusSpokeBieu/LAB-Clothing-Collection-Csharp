@@ -9,6 +9,7 @@ using LABCC.Domain.Interfaces.Services;
 using LABCC.Infrastructure.Configs;
 using LABCC.Infrastructure.Database;
 using LABCC.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var customConfig = CustomConfig.FromEnv();
 

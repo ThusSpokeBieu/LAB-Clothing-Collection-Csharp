@@ -1,11 +1,9 @@
 ﻿using LABCC.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace LABCC.Application.UseCases.Users.SignUp;
+namespace LABCC.Application.UseCases.Auth.SignUp;
 
-[HttpPost("/users/signup")]
-[AllowAnonymous]
+[HttpPost("/auth/signup"), AllowAnonymous]
 public sealed class SignUpEndpoint : Endpoint<
     SignUpRequest, 
     SignUpResponse, 

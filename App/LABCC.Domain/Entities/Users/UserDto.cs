@@ -4,7 +4,7 @@ namespace LABCC.Domain.Entities.Users;
 
 public sealed record UserDto
 {
-    public string Id { get; init; } = default!;
+    public Guid Id { get; init; } = default!;
     public string Email { get; init; } = default!;
     public string Password { get; init; } = default!;
     public string Name { get; init; } = default!;

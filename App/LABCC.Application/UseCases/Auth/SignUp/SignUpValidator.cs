@@ -1,10 +1,8 @@
-﻿using System.Data;
-using FluentValidation;
-using LABCC.Domain.Entities.Users.VO;
+﻿using FluentValidation;
 using LABCC.Domain.Enums;
 using LABCC.Domain.Utils;
 
-namespace LABCC.Application.UseCases.Users.SignUp;
+namespace LABCC.Application.UseCases.Auth.SignUp;
 
 public class SignUpValidator : Validator<SignUpRequest>
 {

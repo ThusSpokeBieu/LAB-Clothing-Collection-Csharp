@@ -1,6 +1,6 @@
 ﻿using LABCC.Domain.Entities.Users;
 
-namespace LABCC.Application.UseCases.Users.SignUp;
+namespace LABCC.Application.UseCases.Auth.SignUp;
 
 public sealed class SignUpMapper : Mapper<SignUpRequest,SignUpResponse, User>
 {

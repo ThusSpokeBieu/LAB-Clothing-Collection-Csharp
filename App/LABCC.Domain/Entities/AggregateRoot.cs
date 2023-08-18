@@ -5,10 +5,10 @@ namespace LABCC.Domain.Entities;
 
 public abstract class AggregateRoot
 {
-    public Identifier Id { get; }
-    public DateTimeOffset UpdatedAt { get; }
-    public DateTimeOffset CreatedAt { get; }
-    public StatusEnum Status { get; }
+    public Identifier Id { get; protected set; }
+    public DateTimeOffset UpdatedAt { get; protected set;  }
+    public DateTimeOffset CreatedAt { get; protected set;  }
+    public StatusEnum Status { get; protected set; }
  
     protected AggregateRoot()
     {
