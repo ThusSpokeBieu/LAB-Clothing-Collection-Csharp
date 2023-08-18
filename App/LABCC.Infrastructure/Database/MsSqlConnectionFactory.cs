@@ -19,5 +19,4 @@ public class MsSqlConnectionFactory : IDbConnectionFactory
         await connection.OpenAsync();
         return connection;
     }
-
 }

@@ -1,6 +1,8 @@
-﻿namespace LABCC.Domain.Interfaces.Repositories;
+﻿using LABCC.Domain.Entities.Users;
 
-public interface IUserRepository
+namespace LABCC.Domain.Interfaces.Repositories;
+
+public interface IUserRepository : IBaseRepository<UserDto>
 {
     
 }

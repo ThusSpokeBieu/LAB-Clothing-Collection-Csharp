@@ -1,6 +1,6 @@
 ﻿using ValueOf;
 
-namespace LABCC.Domain.ValueObjects;
+namespace LABCC.Domain.Entities;
 
 public sealed class Identifier : ValueOf<Guid, Identifier>
 {

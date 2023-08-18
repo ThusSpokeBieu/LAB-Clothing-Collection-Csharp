@@ -2,7 +2,7 @@
 using LABCC.Domain.Utils;
 using ValueOf;
 
-namespace LABCC.Domain.ValueObjects;
+namespace LABCC.Domain.Entities.Users.VO;
 
 public sealed class EmailAddress : ValueOf<string, EmailAddress>
 {

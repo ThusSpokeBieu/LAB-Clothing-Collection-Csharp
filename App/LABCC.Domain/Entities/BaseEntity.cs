@@ -1,6 +1,6 @@
 ﻿namespace LABCC.Domain.Entities;
 
-public class BaseEntity
+public abstract class BaseEntity : AggregateRoot
 {
     
 }

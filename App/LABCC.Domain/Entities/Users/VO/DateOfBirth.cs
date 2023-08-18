@@ -1,9 +1,9 @@
 ﻿using LABCC.Domain.Exceptions;
 using ValueOf;
 
-namespace LABCC.Domain.ValueObjects;
+namespace LABCC.Domain.Entities.Users.VO;
 
-public class DateOfBirth : ValueOf<DateOnly, DateOfBirth>
+public sealed class DateOfBirth : ValueOf<DateOnly, DateOfBirth>
 {
     protected override void Validate()
     {

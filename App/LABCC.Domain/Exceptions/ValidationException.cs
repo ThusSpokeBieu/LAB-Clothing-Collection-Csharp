@@ -1,6 +1,9 @@
 ﻿namespace LABCC.Domain.Exceptions;
 
-public class ValidationException
+public sealed class ValidationException : Exception
 {
-    
+    public ValidationException(string? message) : base(message)
+    {
+    }
+
 }

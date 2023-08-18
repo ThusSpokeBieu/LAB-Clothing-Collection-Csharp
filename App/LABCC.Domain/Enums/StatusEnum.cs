@@ -1,6 +1,7 @@
 ﻿namespace LABCC.Domain.Enums;
 
-public class StatusEnum
+public enum StatusEnum : byte
 {
-    
+    INACTIVE = 0,
+    ACTIVE = 1,
 }

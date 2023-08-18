@@ -1,6 +1,8 @@
-﻿namespace LABCC.Domain.Interfaces.Services;
+﻿using LABCC.Domain.Entities.Users;
 
-public interface IUserService
+namespace LABCC.Domain.Interfaces.Services;
+
+public interface IUserService : IBaseService<User>
 {
     
 }
