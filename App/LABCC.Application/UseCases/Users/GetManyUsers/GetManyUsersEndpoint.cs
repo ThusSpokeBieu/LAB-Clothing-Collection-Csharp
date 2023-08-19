@@ -1,12 +1,14 @@
-﻿using LABCC.Domain.Entities.Users;
+﻿using LABCC.Application.Security.Auth;
+using LABCC.Domain.Entities.Users;
 using LABCC.Domain.Enums;
 using LABCC.Domain.Interfaces.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace LABCC.Application.UseCases.Users.GetManyUsers;
 
-[HttpGet("/users/list"), AllowAnonymous]
-public sealed class GetManyUsersEndpoint : EndpointWithoutRequest<IEnumerable<UserDto>>
+public sealed class GetManyUsersEndpoint : Endpoint<
+    GetManyUserQueryParams, 
+    IEnumerable<UserResponseDto>, 
+    UserEndpointMapper>
 {
     private readonly IUserService _userService;
 
@@ -14,28 +16,36 @@ public sealed class GetManyUsersEndpoint : EndpointWithoutRequest<IEnumerable<Us
     {
         _userService = userService;
     }
-    
-    public override async Task HandleAsync(CancellationToken ct)
-    {
-        var page = Query<int?>("page", isRequired: false) ?? 1;
-        var name = Query<string>("string", isRequired: false);
-        var dateOfBirth = Query<DateTime?>("dateOfBirth", isRequired: false);
-        var gender = Query<string>("gender", isRequired: false);
-        var role = Query<string>("Role", isRequired: false);
 
-        var anGender = Enum.TryParse(gender, true, out GenderEnum parsedGender);
-        var anRole =  Enum.TryParse(role, true, out UserRolesEnum parsedRole);
+    public override void Configure()
+    {
+        Get("/users");
+        Roles(RolesConst.ADMIN, RolesConst.OTHER, RolesConst.CREATOR, RolesConst.MANAGER);
+        Options(x => 
+            x.CacheOutput(p => 
+                p.Expire(TimeSpan.FromSeconds(30))));
+    }
+    
+    public override async Task HandleAsync(GetManyUserQueryParams qp, CancellationToken ct)
+    {
+        var anGender = Enum.TryParse(qp.Gender, true, out GenderEnum parsedGender);
+        var anRole =  Enum.TryParse(qp.Role, true, out UserRolesEnum parsedRole);
 
         var @params = new UserParams
         {
-            Name = name ?? null,
-            DateOfBirth = dateOfBirth ?? null,
+            Name = qp.Name ?? null,
+            
+            DateOfBirth = qp.DateOfBirth is not null ? 
+                new DateTimeOffset(qp.DateOfBirth.Value, TimeOnly.MinValue, TimeSpan.Zero) : 
+                null,
+            
             Gender = anGender ? parsedGender : null,
             UserRole = anRole ? parsedRole : null,
         };
 
-        Response = await _userService.GetAllAsync(page, @params);
-
+        var data = await _userService.GetAllAsync(qp.Page, @params);
+        Response = data.Select(x => Map.FromEntity(x));
+        
         await SendAsync(Response, 200, ct);
     }
 }

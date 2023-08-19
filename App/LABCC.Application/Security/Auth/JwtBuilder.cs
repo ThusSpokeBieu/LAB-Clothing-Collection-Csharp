@@ -10,7 +10,7 @@ public static class JwtBuilder
         JWTBearer.CreateToken(
                 signingKey: CustomConfig.FromEnv()["Jwt-Secret"]!,
                 expireAt: DateTime.UtcNow.AddDays(1),
-                permissions: new []{ $"{data.UserRole}" },
+                roles: new [] { data.UserRole.ToString() },
                 claims: SetClaims(data)
             );
 
@@ -20,6 +20,5 @@ public static class JwtBuilder
             new(ClaimConst.Id, data!.Id.ToString()),
             new(ClaimConst.Document, data.Document),
             new(ClaimConst.Name, data.Name),
-            new(ClaimConst.userRole, data.UserRole.ToString())
         };
 }

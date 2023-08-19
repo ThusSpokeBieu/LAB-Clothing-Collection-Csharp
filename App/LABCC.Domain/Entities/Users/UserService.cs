@@ -40,9 +40,9 @@ public class UserService : IUserService
         return isValid ? userDto : null;
     }
 
-    public Task<UserDto?> GetAsync(Guid id)
+    public async Task<UserDto?> GetAsync(string param)
     {
-        throw new NotImplementedException();
+        return await _userRepo.GetAsync(@param);
     }
 
     public async Task<IEnumerable<UserDto>> GetAllAsync(int page, UserParams @params)

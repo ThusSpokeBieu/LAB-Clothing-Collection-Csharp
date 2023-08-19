@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Dapper;
 using LABCC.Domain.Entities.Users;
+using LABCC.Domain.Enums;
 using LABCC.Domain.Interfaces.Database;
 using LABCC.Domain.Interfaces.Repositories;
 using LABCC.Infrastructure.Repositories.Sql;
@@ -36,17 +37,27 @@ public sealed class UserRepository : IUserRepository
             LoginValue = credential
         };
         
-        var result = await connection.QueryFirstOrDefaultAsync<UserDto>(
+        return await connection.QueryFirstOrDefaultAsync<UserDto>(
             UserProcedures.UserLogin,
             parameters,
             commandType: CommandType.StoredProcedure);
 
-        return result;
     }
 
-    public Task<UserDto?> GetAsync(Guid id)
+    public async Task<UserDto?> GetAsync(string? @param)
     {
-        throw new NotImplementedException();
+        using var connection = await _connectionFactory.CreateConnectionAsync();
+
+        var parameters = new
+        {
+            SearchValue = @param,
+            Status = StatusEnum.ACTIVE
+        };
+
+        return await connection.QueryFirstOrDefaultAsync<UserDto>(
+            UserProcedures.GetSingleUser,
+            parameters,
+            commandType: CommandType.StoredProcedure);
     }
 
     public async Task<IEnumerable<UserDto>> GetAllAsync(int page, UserParams? @params)
@@ -56,7 +67,7 @@ public sealed class UserRepository : IUserRepository
         var parameters = new
         {
             PageNumber = page,
-            PageSize = 4,
+            PageSize = 20,
             FilterName = @params?.Name ?? null,
             FilterGender = @params?.Gender ?? null,
             FilterStatus = @params?.Status ?? null,

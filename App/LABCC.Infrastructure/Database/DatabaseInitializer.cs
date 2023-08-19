@@ -2,6 +2,7 @@
 using Dapper;
 using LABCC.Domain.Interfaces.Database;
 using LABCC.Infrastructure.Configs;
+using LABCC.Infrastructure.Database.Seed;
 
 namespace LABCC.Infrastructure.Database;
 

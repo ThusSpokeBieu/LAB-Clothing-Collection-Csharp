@@ -18,6 +18,8 @@ builder.Services.AddFastEndpoints(options =>
     options
         .SourceGeneratorDiscoveredTypes = DiscoveredTypes.All);
 
+builder.Services.AddResponseCaching();
+
 builder.Services.AddJWTBearerAuth(customConfig["Jwt-Secret"]);
 
 builder.Services.SwaggerDocument();
