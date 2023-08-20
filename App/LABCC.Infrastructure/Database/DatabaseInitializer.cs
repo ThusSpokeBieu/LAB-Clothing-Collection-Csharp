@@ -10,11 +10,12 @@ public sealed class DatabaseInitializer
 {
     private readonly IDbConnectionFactory _connectionFactory;
     private readonly string _userDbInitialSql;
+    private readonly string _root = Directory.GetCurrentDirectory();
 
     public DatabaseInitializer(IDbConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
-        _userDbInitialSql = UserInitialSql();
+        _userDbInitialSql = UserInitialSql(_root);
     }
 
     public async Task InitializeAsync()
@@ -25,9 +26,9 @@ public sealed class DatabaseInitializer
         await UserInitialSeed(connection);
     }
 
-    private static string UserInitialSql()
+    private static string UserInitialSql(string root)
     {
-        return File.ReadAllText("./../../Resources/UserScript.sql");
+        return File.ReadAllText($"{root}/.sql/UserScript.sql");
     }
 
     private static async Task UserInitialSeed(IDbConnection connection)

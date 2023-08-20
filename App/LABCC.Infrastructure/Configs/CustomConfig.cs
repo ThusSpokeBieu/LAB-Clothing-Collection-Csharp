@@ -4,7 +4,9 @@ public static class CustomConfig
 {
     public static Dictionary<string, string> FromEnv()
     {
-        DotEnv.Load("./../../.env");
+        var appRoot = Directory.GetCurrentDirectory();
+
+        DotEnv.Load($"{appRoot}/../../.env");
         var connectionString = GetConnectionString();
         var jwtSecret = GetJwtSecret();
 
@@ -18,12 +20,11 @@ public static class CustomConfig
     private static string GetConnectionString()
     {
         var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
-        var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
         var dbName = Environment.GetEnvironmentVariable("DB_NAME");
         var dbUser = Environment.GetEnvironmentVariable("DB_USER");
         var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
         
-        var connectionString = $"Server={dbHost},{dbPort};Database={dbName};User Id={dbUser};Password={dbPassword};Trusted_Connection=False;TrustServerCertificate=true;MultipleActiveResultSets=true";
+        var connectionString = $"Server={dbHost};Database={dbName};User Id={dbUser};Password={dbPassword};Trusted_Connection=False;TrustServerCertificate=true;MultipleActiveResultSets=true";
 
         return connectionString;
     }
