@@ -2,7 +2,7 @@
 
 services:
   # mssql
-  labccDb:
+  labcc-db:
     container_name: labcc-mssql
     restart: always
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -12,9 +12,27 @@ services:
       MSSQL_PID: "Developer"
       MSSQL_AGENT_ENABLED: "true"
     ports:
-      - "${DB_PORT}:1433"
+      - "${DB_PORT}:${DB_PORT}"
+    networks:
+      - labcc-network
     volumes:
       - sql-storage:/var/opt/mssql
+  
+  
+  # labcc application
+  labcc-app:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    networks:
+      - labcc-network
+    depends_on:
+      - labcc-db
 
+networks:              
+  labcc-network:
+    driver: bridge
+    
 volumes:
   sql-storage:

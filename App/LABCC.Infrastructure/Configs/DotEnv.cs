@@ -4,9 +4,14 @@ public static class DotEnv
 {
     public static void Load(string filePath)
     {
-        if (!File.Exists(filePath)) 
-            throw new FileNotFoundException(".env was not found, please create the .env file in the root repository");
-
+        if (!File.Exists(filePath))
+        {
+            var root = Directory.GetCurrentDirectory();
+            filePath = Path.Combine(root, ".env");
+        }
+        
+        if (!File.Exists(filePath)) return;
+        
         foreach( var line in File.ReadAllLines(filePath) )
         {
             var parts = line.Split('=', StringSplitOptions.RemoveEmptyEntries);

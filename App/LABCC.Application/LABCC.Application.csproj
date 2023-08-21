@@ -8,12 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="FastEndpoints" Version="5.15.0.16-beta" />
       <PackageReference Include="FastEndpoints.Generator" Version="5.15.0.16-beta">
         <PrivateAssets>all</PrivateAssets>
@@ -28,13 +22,21 @@
       <Folder Include="UseCases\ClothingCollections\" />
       <Folder Include="UseCases\ClothingModels\" />
       <Folder Include="UseCases\Users\DeleteUser\" />
-      <Folder Include="UseCases\Users\GetSingleUser\" />
-      <Folder Include="UseCases\Users\UpdateUser\" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\LABCC.Domain\LABCC.Domain.csproj" />
       <ProjectReference Include="..\LABCC.Infrastructure\LABCC.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include=".sql/**/*.sql" 
+                 CopyToPublishDirectory="PreserveNewest"
+                 CopyToOutputDirectory="PreserveNewest" />
+        
+        <Content Include=".\..\..\.env" 
+                 CopyToPublishDirectory="PreserveNewest" 
+                 CopyToOutputDirectory="PreserveNewest"/>
     </ItemGroup>
 
 </Project>

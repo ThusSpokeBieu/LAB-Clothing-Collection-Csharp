@@ -2,7 +2,7 @@
 using LABCC.Domain.Entities.Users.VO;
 using LABCC.Domain.Enums;
 
-namespace LABCC.Infrastructure.Configs;
+namespace LABCC.Infrastructure.Database.Seed;
 
 public static class UserSeed
 {
@@ -142,6 +142,21 @@ public static class UserSeed
             Email = "daniel.mendes.oliveira@example.com",
             UserRole = UserRolesEnum.ADMIN,
             Phone = "62987654321",
+            Status = StatusEnum.ACTIVE,
+            Password = passwordCommon.Value,
+            CreatedAt = Now,
+            UpdatedAt = Now,
+        },
+        new UserDto
+        {
+            Id = Guid.NewGuid(),
+            Name = "Exemplo Silva",
+            Document = "91850462818",
+            DateOfBirth = new DateTime(1995, 12, 30),
+            Gender = GenderEnum.MALE,
+            Email = "example@email.com",
+            UserRole = UserRolesEnum.ADMIN,
+            Phone = "62984654321",
             Status = StatusEnum.ACTIVE,
             Password = passwordCommon.Value,
             CreatedAt = Now,

@@ -89,7 +89,6 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.GetUs
         ');
     END
 
--- CREATE PROCEDURE: GET SINGLE USER
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.GetSingleUser') AND type in (N'P', N'PC'))
     BEGIN
         EXEC('CREATE PROCEDURE dbo.GetSingleUser
@@ -98,15 +97,24 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.GetSi
         AS
         BEGIN
             SET NOCOUNT ON;
+            
+            DECLARE @Id UNIQUEIDENTIFIER;
+
+            BEGIN TRY
+                SET @Id = CAST(@SearchValue AS UNIQUEIDENTIFIER);
+            END TRY
+            BEGIN CATCH
+                SET @Id = NULL;
+            END CATCH;
 
             SELECT TOP 1 Id, Document, Email, Name, DateOfBirth,
                          Phone, Gender, UserRole, UpdatedAt, CreatedAt, Status
             FROM dbo.Users
-            WHERE (Id = @SearchValue
+            WHERE (@Id IS NULL OR Id = @Id)
                OR Document = @SearchValue
                OR Email = @SearchValue
-               OR Phone = @SearchValue) 
-              AND (@Status IS NULL OR Status = @Status);
+               OR Phone = @SearchValue
+               OR (@Status IS NULL OR Status = @Status);
 
         END
         ');
@@ -125,4 +133,38 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.UserL
             FROM dbo.Users
             WHERE (Email = @LoginValue OR Phone = @LoginValue OR Document = @LoginValue);
         END');
+    END
+
+-- CREATE PROCEDURE: EDIT USER
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.EditUser') AND type in (N'P', N'PC'))
+    BEGIN
+        EXEC('CREATE PROCEDURE dbo.EditUser
+        @Id UNIQUEIDENTIFIER,
+        @Email NVARCHAR(100) = NULL,
+        @Password NVARCHAR(255) = NULL,
+        @Name NVARCHAR(100) = NULL,
+        @Document VARCHAR(18) = NULL,
+        @DateOfBirth DATE = NULL,
+        @Gender TINYINT = NULL,
+        @Phone VARCHAR(15) = NULL,
+        @UserRole TINYINT = NULL,
+        @Status TINYINT = NULL
+    AS
+    BEGIN
+        SET NOCOUNT ON;
+
+        UPDATE dbo.Users
+        SET
+            Email = ISNULL(@Email, Email),
+            Password = ISNULL(@Password, Password),
+            Name = ISNULL(@Name, Name),
+            Document = ISNULL(@Document, Document),
+            DateOfBirth = ISNULL(@DateOfBirth, DateOfBirth),
+            Gender = ISNULL(@Gender, Gender),
+            Phone = ISNULL(@Phone, Phone),
+            UserRole = ISNULL(@UserRole, UserRole),
+            Status = ISNULL(@Status, Status)
+        WHERE Id = @Id;
+
+    END');
     END

@@ -4,7 +4,7 @@ public interface IBaseRepository<TEntityDto, TParams>
 {
     Task<bool> CreateAsync(TEntityDto customer);
 
-    Task<TEntityDto?> GetAsync(Guid id);
+    Task<TEntityDto?> GetAsync(string @param);
 
     Task<IEnumerable<TEntityDto>> GetAllAsync(int page, TParams? parameters);
 

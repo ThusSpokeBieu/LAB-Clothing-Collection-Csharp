@@ -1,6 +1,5 @@
 global using FastEndpoints;
-global using FastEndpoints.Security; 
-    
+global using FastEndpoints.Security;
 using FastEndpoints.Swagger;
 using LABCC.Domain.Entities.Users;
 using LABCC.Domain.Interfaces.Database;
@@ -18,6 +17,8 @@ builder.Services.AddFastEndpoints(options =>
     options
         .SourceGeneratorDiscoveredTypes = DiscoveredTypes.All);
 
+builder.Services.AddResponseCaching();
+
 builder.Services.AddJWTBearerAuth(customConfig["Jwt-Secret"]);
 
 builder.Services.SwaggerDocument();
@@ -30,6 +31,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
+
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseFastEndpoints(c => c.Endpoints.RoutePrefix = "api/v1");
