@@ -16,5 +16,4 @@ RUN dotnet publish -c Release -o out --no-restore
 FROM base AS final
 WORKDIR /App
 COPY --from=publish /src/out /App
-#ENTRYPOINT ["ls", "-a"]
 ENTRYPOINT ["dotnet", "/App/LABCC.Application.dll"]

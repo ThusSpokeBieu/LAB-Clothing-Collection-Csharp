@@ -17,7 +17,8 @@ services:
       - labcc-network
     volumes:
       - sql-storage:/var/opt/mssql
-        
+  
+  
   # labcc application
   labcc-app:
     build:
